@@ -9,6 +9,7 @@ import io.servide.common.except.Try;
 import io.servide.common.inject.discover.Discovery;
 import io.servide.common.inject.module.Modular;
 import io.servide.common.spigot.config.ModuleConfig;
+import io.servide.common.spigot.config.auto.ConfigDiscovery;
 import io.servide.common.spigot.inject.module.Module;
 import io.servide.common.spigot.inject.module.PluginModule;
 import java.io.File;
@@ -52,9 +53,12 @@ public abstract class ServidePlugin extends JavaPlugin implements Modular {
     this.disable();
   }
 
-  public void configure(Binder binder) {
-
+  private void configure(Binder binder) {
+    ConfigDiscovery.inject(this, binder);
+    setup(binder);
   }
+
+  public abstract void setup(Binder binder);
 
   public void enable() {
 
@@ -99,7 +103,7 @@ public abstract class ServidePlugin extends JavaPlugin implements Modular {
 
   private File findModuleConfigFile() {
     File file = new File(
-        this.getDataFolder().getAbsoluteFile().getParentFile().getParentFile().getAbsolutePath(),
+        this.getDataFolder(),
         ServidePlugin.MODULE_CONFIG_NAME
     );
 
