@@ -14,6 +14,9 @@ public class BigId {
     this.id = id;
   }
 
+  public static BigId create(String id) {
+    return new BigId(id);
+  }
 
   public static BigId random(int size) {
     return new BigId(RandomStringUtils.randomAlphabetic(size));
