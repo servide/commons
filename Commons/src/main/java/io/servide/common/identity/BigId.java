@@ -7,10 +7,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 public class BigId {
 
   private final String id;
+  private static final int SIZE = 64;
 
   private BigId(String id) {
     Preconditions.checkNotNull(id);
-    Preconditions.checkArgument(id.length() == 256);
+    Preconditions.checkArgument(id.length() == SIZE);
     this.id = id;
   }
 
@@ -19,7 +20,7 @@ public class BigId {
   }
 
   public static BigId random() {
-    return new BigId(RandomStringUtils.randomAlphabetic(64));
+    return new BigId(RandomStringUtils.randomAlphabetic(SIZE));
   }
 
   public String getId() {
