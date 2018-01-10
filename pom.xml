@@ -59,11 +59,6 @@
       <id>dmulloy2-repo</id>
       <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
     </repository>
-    <repository>
-      <id>central</id>
-      <name>servide-releases</name>
-      <url>http://maven.servide.io/artifactory/servide-release</url>
-    </repository>
   </repositories>
 
   <dependencies>
@@ -157,18 +152,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <distributionManagement>
-    <repository>
-      <id>central</id>
-      <name>servide-releases</name>
-      <url>http://maven.servide.io/artifactory/servide-release</url>
-    </repository>
-    <snapshotRepository>
-      <id>snapshots</id>
-      <name>servide-snapshots</name>
-      <url>http://maven.servide.io/artifactory/servide-snapshot</url>
-    </snapshotRepository>
-  </distributionManagement>
 
 </project>
