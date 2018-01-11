@@ -10,37 +10,30 @@ public enum SimpleConfig {
 
   ;
 
-  public static void save(File dir, Object value) {
+  public static void save(File target, Object value) {
     String data = Jackson.objectToYaml(value);
-    File target = fileForValue(dir, value.getClass());
     Try.to(() -> FileUtils.write(target, data));
   }
 
-  public static void saveIfNotExists(File dir, Object value) {
+  public static void saveIfNotExists(File target, Object value) {
     String data = Jackson.objectToYaml(value);
-    File target = fileForValue(dir, value.getClass());
     if (!target.exists()) {
       Try.to(() -> FileUtils.write(target, data));
     }
   }
 
-  public static <T> T load(File dir, Class<T> tClass) {
-    File target = fileForValue(dir, tClass);
+  public static <T> T load(File target, Class<T> tClass) {
     if (target.exists()) {
       String data = Try.to(() -> FileUtils.readFileToString(target));
       return Jackson.yamlToObject(data, tClass);
     }
     T t = Try.to(tClass::newInstance);
-    save(dir, t);
+    save(target, t);
     return t;
   }
 
-  public static <T> void bind(Binder binder, File dir, Class<T> tClass) {
-    binder.bind(tClass).toInstance(load(dir, tClass));
-  }
-
-  private static File fileForValue(File dir, Class<?> aClass) {
-    return FileUtils.getFile(dir, aClass.getSimpleName() + ".yml");
+  public static <T> void bind(Binder binder, File target, Class<T> tClass) {
+    binder.bind(tClass).toInstance(load(target, tClass));
   }
 
 }
