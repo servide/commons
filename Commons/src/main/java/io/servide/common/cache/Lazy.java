@@ -5,8 +5,8 @@ import java.util.function.Supplier;
 public final class Lazy<T> {
 
   private final Supplier<T> supplier;
-  private boolean toSupply = true;
-  private T value;
+  private boolean valid = false;
+  private T cachedValue;
 
   private Lazy(Supplier<T> supplier) {
     this.supplier = supplier;
@@ -17,12 +17,12 @@ public final class Lazy<T> {
   }
 
   public T get() {
-    if (this.toSupply) {
-      this.value = this.supplier.get();
-      this.toSupply = false;
+    if (!this.valid) {
+      this.cachedValue = this.supplier.get();
+      this.valid = true;
     }
 
-    return this.value;
+    return this.cachedValue;
   }
 
 }
