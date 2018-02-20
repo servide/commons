@@ -50,16 +50,6 @@
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/main/resources/META-INF</directory>
-        <targetPath>./META-INF</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>services/javax.annotation.processing.Processor</include>
-        </includes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
