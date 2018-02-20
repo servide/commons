@@ -25,4 +25,8 @@ public final class Lazy<T> {
     return this.cachedValue;
   }
 
+  public void invalidate() {
+    this.valid = false;
+  }
+
 }
